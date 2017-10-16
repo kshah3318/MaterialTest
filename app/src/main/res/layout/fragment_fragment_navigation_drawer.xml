@@ -1,0 +1,40 @@
+<!--<org.lucasr.dspec.DesignSpecFrameLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:designSpec="@raw/spec">
+
+</org.lucasr.dspec.DesignSpecFrameLayout>-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="#eee"
+tools:context="com.karan.materialtest.Activity.FragmentNavigationDrawer">
+
+<!-- TODO: Update blank fragment layout -->
+<!--    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />-->
+<LinearLayout
+    android:id="@+id/image_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FB8C00">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:src="@mipmap/user_profile" />
+</LinearLayout>
+
+<android.support.v7.widget.RecyclerView
+    android:id="@+id/drawer_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/image_container">
+
+</android.support.v7.widget.RecyclerView>
+</RelativeLayout>

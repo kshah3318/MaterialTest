@@ -94,7 +94,11 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.navigation) {
             Intent io = new Intent(this, SubActivity.class);
             startActivity(io);
-
+        }
+        if(id==R.id.vectorDisp)
+        {
+            Intent io=new Intent(this,VectorTestActivity.class);
+            startActivity(io);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -102,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
     class MyPagerAdapter extends FragmentPagerAdapter {
 
         String tabs[];
-        int icons[] = {R.drawable.ic_home, R.drawable.ic_movies, R.drawable.ic_photo};
+        int icons[] = {R.drawable.android_icon, R.drawable.ic_movies, R.drawable.ic_photo};
         String tabText[] = getResources().getStringArray(R.array.tabs);
 
         public MyPagerAdapter(FragmentManager fm) {
@@ -161,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onResponse(String response) {
                             // Display the first 500 characters of the response string.
                             //mTextView.setText("Response is: "+ response.toString());
-                            Toast.makeText(getActivity(),response.toString(),Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getActivity(),response.toString(),Toast.LENGTH_LONG).show();
                         }
                     }, new Response.ErrorListener() {
                 @Override

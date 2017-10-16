@@ -17,6 +17,13 @@
         app:showAsAction="never">
 
     </item>
+    <item
+        android:title="Vector Drawable Demo"
+        android:id="@+id/vectorDisp"
+        android:orderInCategory="100"
+        app:showAsAction="never">
+
+    </item>
 <item
     android:title="@string/next"
     android:id="@+id/navigation"

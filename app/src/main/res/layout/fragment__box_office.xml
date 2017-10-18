@@ -5,9 +5,11 @@
     tools:context="fragments.Fragment_BoxOffice">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Fragment box office" />
+        android:id="@+id/listMovieBoxOffice"
+        >
 
+    </android.support.v7.widget.RecyclerView>
 </FrameLayout>

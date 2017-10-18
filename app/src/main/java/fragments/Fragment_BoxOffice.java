@@ -4,6 +4,8 @@ package fragments;
 import android.app.VoiceInteractor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +55,7 @@ public class Fragment_BoxOffice extends Fragment {
     public static  String url="https://api.themoviedb.org/3/movie/now_playing?api_key=47ec37919c0cd2b9fa96494103a3b838&language=en-US&page=";
     private ArrayList<Movie> movies=new ArrayList<>();
     private DateFormat mdDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+    private RecyclerView listMovieBoxOffice;
     public Fragment_BoxOffice() {
         // Required empty public constructor
     }
@@ -131,7 +134,6 @@ public class Fragment_BoxOffice extends Fragment {
                 movie.setRating(Double.valueOf(movie_rating));
                 movie.setPoster_path(movie_poster);
                 msStringBuilder.append(movie.getMovie_id()+"----------"+movie.getPoster_path()+"\n");
-
                 movies.add(movie);
             }
             Toast.makeText(getActivity(),msStringBuilder.toString(),Toast.LENGTH_LONG).show();
@@ -145,7 +147,11 @@ public class Fragment_BoxOffice extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment__box_office, container, false);
+        View view=inflater.inflate(R.layout.fragment__box_office, container, false);
+
+        listMovieBoxOffice=(RecyclerView) view.findViewById(R.id.listMovieBoxOffice);
+        listMovieBoxOffice.setLayoutManager(new LinearLayoutManager(getActivity()));
+        return view;
     }
 
 }

@@ -34,7 +34,7 @@
         android:layout_gravity="start"
         android:layout_height="match_parent"
         app:layout="@layout/fragment_fragment_navigation_drawer"
-        android:name="com.karan.materialtest.Activity.FragmentNavigationDrawer"
+        android:name="fragments.FragmentNavigationDrawer"
         tools:layout="@layout/fragment_fragment_navigation_drawer">
     </fragment>
 </android.support.v4.widget.DrawerLayout>

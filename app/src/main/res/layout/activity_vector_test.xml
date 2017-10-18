@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context="com.karan.materialtest.Activity.VectorTestActivity">
     <include android:id="@+id/app_bar"
@@ -13,6 +13,18 @@
     android:layout_width="144dp"
     android:layout_height="144dp"
     android:id="@+id/vectorImage"
+    android:layout_gravity="center"
+    android:layout_weight="1"
     android:background="@drawable/android_icon"
-    />
+    android:contentDescription=""
+    tools:ignore="ContentDescription" />
+    <ImageView
+        android:layout_width="144dp"
+        android:paddingTop="25dp"
+        android:layout_height="144dp"
+        android:id="@+id/vectorImageClock"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:background="@drawable/vector_clock"
+        tools:ignore="ContentDescription" />
 </LinearLayout>

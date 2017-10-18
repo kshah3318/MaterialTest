@@ -5,17 +5,12 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +19,9 @@ import android.widget.TextView;
 
 import com.karan.materialtest.R;
 
+import fragments.Fragment_BoxOffice;
+import fragments.Fragment_Search;
+import fragments.Fragment_Upcoming;
 import it.neokree.materialtabs.MaterialTab;
 import it.neokree.materialtabs.MaterialTabHost;
 import it.neokree.materialtabs.MaterialTabListener;
@@ -34,7 +32,9 @@ public class SubActivity extends ActionBarActivity implements MaterialTabListene
     private MaterialTabHost materialTabHost;
     private Toolbar toolbar;
     private ViewPager mViewPager;
-
+    public static final int MOVIES_SEARCH_RESULT=0;
+    public static final int MOVIES_HITS=1;
+    public static final int MOVIES_UPCOMING=2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +53,7 @@ public class SubActivity extends ActionBarActivity implements MaterialTabListene
             public void onPageSelected(int pos)
             {
                 materialTabHost.setSelectedNavigationItem(pos);
+                //mViewPager.setOffscreenPageLimit(0);
             }
         });
         for(int i=0;i<adapter.getCount();i++)
@@ -85,7 +86,24 @@ public class SubActivity extends ActionBarActivity implements MaterialTabListene
 
         @Override
         public Fragment getItem(int position) {
-            return MyFragment.getInstance(position);
+
+            //return MyFragment.getInstance(position);
+            Fragment mfragment=null;
+            switch (position)
+            {
+                case MOVIES_SEARCH_RESULT:
+                    mfragment= Fragment_BoxOffice.newInstance("","");
+                    break;
+
+                case MOVIES_HITS:
+                    mfragment= Fragment_Search.newInstance("","");
+                    break;
+
+                case MOVIES_UPCOMING:
+                    mfragment= Fragment_Upcoming.newInstance("","");
+                    break;
+            }
+            return mfragment;
         }
 
         @Override

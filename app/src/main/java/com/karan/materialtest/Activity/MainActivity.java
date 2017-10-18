@@ -5,11 +5,9 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -29,11 +27,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.karan.materialtest.R;
 
-import org.w3c.dom.Text;
-
+import fragments.FragmentNavigationDrawer;
 import network.VolleySingleton;
 import tabs.SlidingTabLayout;
 
@@ -43,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private SlidingTabLayout msSlidingTabLayout;
     private FragmentNavigationDrawer fragmentNavigationDrawer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    class MyPagerAdapter extends FragmentPagerAdapter {
+    class MyPagerAdapter extends FragmentStatePagerAdapter {
 
         String tabs[];
         int icons[] = {R.drawable.android_icon, R.drawable.ic_movies, R.drawable.ic_photo};
@@ -118,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             MyFragment myFragment = MyFragment.getInstance(position);
             return myFragment;
+
+
         }
 
         //Code to add the icons in the sliding TabLayout by converting into screen with the help of SpannableString

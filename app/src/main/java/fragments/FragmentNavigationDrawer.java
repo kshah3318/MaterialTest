@@ -1,4 +1,4 @@
-package com.karan.materialtest.Activity;
+package fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.karan.materialtest.Activity.SubActivity;
 import com.karan.materialtest.R;
 
 import java.util.ArrayList;

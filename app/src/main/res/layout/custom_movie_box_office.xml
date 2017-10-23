@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardUseCompatPadding="true"
             android:id="@+id/card_movies"
-           >
+            >
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -17,7 +17,7 @@
                 <ImageView
                     android:layout_width="54dp"
                     android:layout_height="80dp"
-                    android:id="@+id/person_photo"
+                    android:id="@+id/movie_photo"
                     android:src="@drawable/animator_vector_clock"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
@@ -28,28 +28,35 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/movie_name"
                     android:text="Padmavati"
-                    android:layout_toRightOf="@+id/person_photo"
+                    android:layout_toRightOf="@+id/movie_photo"
                     android:layout_alignParentTop="true"
                     android:textSize="25sp"
                     />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/sypnosis"
                     android:text="shshhs sjsjsjsjs jsjsjj sjsjsjjj sjsjsjjs sjsjsjs sjsjsjsjs sjsjsjsj"
-                    android:layout_toRightOf="@+id/person_photo"
+                    android:layout_toRightOf="@+id/movie_photo"
                     android:layout_below="@+id/movie_name"
+
                     />
                 <RatingBar
                     style="@android:style/Widget.Holo.RatingBar.Indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/sypnosis"
-                    android:isIndicator="false"/>
+                    android:isIndicator="true"
+                    android:layout_toRightOf="@id/movie_photo"
+                    android:id="@+id/movie_rate_bar"
+                    android:layout_below="@+id/sypnosis"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/movie_rate_bar"
+                    android:layout_toRightOf="@id/movie_photo"
+                    android:id="@+id/movie_date"
+                    android:text="Movie Release Date"/>
             </RelativeLayout>
-
 
         </android.support.v7.widget.CardView>
 </LinearLayout>

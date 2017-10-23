@@ -1,13 +1,42 @@
 package Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 
 /**
  * Created by Admin on 10/18/2017.
  */
 
-public class Movie {
+public class Movie implements Parcelable{
     private String movie_id;
+
+    public Movie(Parcel in) {
+        movie_id = in.readString();
+        movie_title = in.readString();
+        releaseDateTheartre=new Date(in.readLong());
+        vote_count = in.readInt();
+        syopsis = in.readString();
+        rating = in.readFloat();
+        poster_path = in.readString();
+    }
+
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
+
+    public Movie() {
+        
+    }
 
     public String getMovie_id() {
         return movie_id;
@@ -49,11 +78,11 @@ public class Movie {
         this.syopsis = syopsis;
     }
 
-    public double getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 
@@ -69,6 +98,24 @@ public class Movie {
     private Date releaseDateTheartre;
     private int vote_count;
     private String syopsis;
-    private double rating;
+    private float rating;
     private String poster_path;
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+        dest.writeString(movie_id);
+        dest.writeString(movie_title);
+        dest.writeLong(releaseDateTheartre.getTime());
+        dest.writeInt(vote_count);
+        dest.writeString(syopsis);
+        dest.writeFloat(rating);
+        dest.writeString(poster_path);
+    }
+
 }

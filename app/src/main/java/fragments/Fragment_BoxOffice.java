@@ -30,8 +30,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import Adapters.AdapterBoxOffice;
 import Models.Movie;
 import extras.Keys;
+import extras.MovieSorter;
+import extras.SortListener;
 import network.VolleySingleton;
 
 /**
@@ -39,11 +42,12 @@ import network.VolleySingleton;
  * Use the {@link Fragment_BoxOffice#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_BoxOffice extends Fragment {
+public class Fragment_BoxOffice extends Fragment implements  SortListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String STATE_MOVIES = "state_movies";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -51,11 +55,13 @@ public class Fragment_BoxOffice extends Fragment {
     private VolleySingleton mVolleySingleton;
     private ImageLoader mImageLoader;
     private RequestQueue mRequestQueue;
+    private AdapterBoxOffice maAdapterBoxOffice;
     public static final String box_office_url="https://api.themoviedb.org/3/movie/now_playing?";
     public static  String url="https://api.themoviedb.org/3/movie/now_playing?api_key=47ec37919c0cd2b9fa96494103a3b838&language=en-US&page=";
-    private ArrayList<Movie> movies=new ArrayList<>();
     private DateFormat mdDateFormat=new SimpleDateFormat("yyyy-MM-dd");
     private RecyclerView listMovieBoxOffice;
+    private ArrayList<Movie> movies=new ArrayList<>();
+    private MovieSorter movieSorter=new MovieSorter();
     public Fragment_BoxOffice() {
         // Required empty public constructor
     }
@@ -77,6 +83,13 @@ public class Fragment_BoxOffice extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
+    @Override
+    public  void onSaveInstanceState(Bundle outstate)
+    {
+        super.onSaveInstanceState(outstate);
+        outstate.putParcelableArrayList(STATE_MOVIES,movies);
+    }
     public static  String getRequestUrl(int limit)
     {
         return url+limit;
@@ -90,14 +103,15 @@ public class Fragment_BoxOffice extends Fragment {
         }
         mVolleySingleton=VolleySingleton.getInstance();
         mRequestQueue=mVolleySingleton.getRequestQueue();
-        SendJsonRequest();
+
     }
     private void SendJsonRequest()
     {
-        JsonObjectRequest mrJsonObjectRequest=new JsonObjectRequest(Request.Method.GET,getRequestUrl(10),new Response.Listener<JSONObject>() {
+        JsonObjectRequest mrJsonObjectRequest=new JsonObjectRequest(Request.Method.GET,getRequestUrl(4),null,new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-               parseJsonResponse(response);
+               movies=parseJsonResponse(response);
+                maAdapterBoxOffice.setMovieList(movies);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -107,11 +121,13 @@ public class Fragment_BoxOffice extends Fragment {
         });
         mRequestQueue.add(mrJsonObjectRequest);
     }
-    private void parseJsonResponse(JSONObject response)
+
+    private ArrayList<Movie> parseJsonResponse(JSONObject response)
     {
+        ArrayList<Movie> movies=new ArrayList<>();
         if(response==null || response.length()==0)
         {
-            return;
+            return null;
         }
         try {
             StringBuilder msStringBuilder=new StringBuilder();
@@ -131,17 +147,17 @@ public class Fragment_BoxOffice extends Fragment {
                 Date date=mdDateFormat.parse(movie_release_date);
                 movie.setReleaseDateTheartre(date);
                 movie.setSyopsis(movie_synopsis);
-                movie.setRating(Double.valueOf(movie_rating));
-                movie.setPoster_path(movie_poster);
+                movie.setRating(Float.valueOf(movie_rating));
+                movie.setPoster_path("https://api.themoviedb.org"+movie_poster);
                 msStringBuilder.append(movie.getMovie_id()+"----------"+movie.getPoster_path()+"\n");
                 movies.add(movie);
             }
-            Toast.makeText(getActivity(),msStringBuilder.toString(),Toast.LENGTH_LONG).show();
-        } catch (JSONException e) {
+                    } catch (JSONException e) {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        return movies;
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -151,7 +167,40 @@ public class Fragment_BoxOffice extends Fragment {
 
         listMovieBoxOffice=(RecyclerView) view.findViewById(R.id.listMovieBoxOffice);
         listMovieBoxOffice.setLayoutManager(new LinearLayoutManager(getActivity()));
+        maAdapterBoxOffice=new AdapterBoxOffice(getActivity());
+        listMovieBoxOffice.setAdapter(maAdapterBoxOffice);
+        if(savedInstanceState!=null)
+        {
+            Toast.makeText(getActivity(),"Data fetched from Parcelable state",Toast.LENGTH_LONG).show();
+            movies=savedInstanceState.getParcelableArrayList(STATE_MOVIES);
+            maAdapterBoxOffice.setMovieList(movies);
+        }
+        else
+        {
+            Toast.makeText(getActivity(),"Data fetched from Json Request",Toast.LENGTH_LONG).show();
+            SendJsonRequest();
+        }
         return view;
     }
 
+    @Override
+    public void onSortByName() {
+
+        //Sorting the list movies in alphabetical order
+        //Toast.makeText(getActivity(),"Name wise sorting fragment",Toast.LENGTH_LONG).show();
+        movieSorter.sortMoviesByName(movies);
+        maAdapterBoxOffice.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onSortByDate() {
+        movieSorter.sortMoviesByDate(movies);
+        maAdapterBoxOffice.notifyDataSetChanged();
+
+    }
+
+    @Override
+    public void onSortByRating() {
+
+    }
 }

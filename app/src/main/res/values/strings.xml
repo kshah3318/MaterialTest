@@ -10,6 +10,7 @@
     <string name="photos">Photos</string>
     <string name="movie">Movies</string>
     <string name="notification">Notification</string>
+    <string name="search">Search</string>
     <string-array name="tabs">
         <item>TAB 1</item>
         <item>TAB 2</item>

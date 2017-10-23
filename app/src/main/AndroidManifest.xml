@@ -3,7 +3,10 @@
     package="com.karan.materialtest">
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-
+<uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE">
+    </uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
     <application
         android:name=".Activity.MyApplication"
         android:allowBackup="true"
@@ -15,9 +18,14 @@
         <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".Activity.SubActivity"
+                >
+
+            </meta-data>
         </activity>
         <activity android:name=".Activity.SubActivity">
             <meta-data
@@ -25,6 +33,10 @@
                 android:value=".Activity.MainActivity" />
         </activity>
         <activity android:name=".Activity.VectorTestActivity"></activity>
+        <service android:name="services.MyServices" android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE">
+
+        </service>
     </application>
 
 </manifest>

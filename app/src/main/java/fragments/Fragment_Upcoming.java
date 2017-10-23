@@ -6,15 +6,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.karan.materialtest.R;
+
+import extras.SortListener;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Fragment_Upcoming#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_Upcoming extends Fragment {
+public class Fragment_Upcoming extends Fragment implements SortListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -63,4 +66,18 @@ public class Fragment_Upcoming extends Fragment {
         return inflater.inflate(R.layout.fragment__upcoming, container, false);
     }
 
+    @Override
+    public void onSortByName() {
+        Toast.makeText(getActivity(),"Upcoming wise sorting",Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onSortByDate() {
+
+    }
+
+    @Override
+    public void onSortByRating() {
+
+    }
 }
